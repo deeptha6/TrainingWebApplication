@@ -1,0 +1,60 @@
+<div style="text-align:center">
+    <h1>
+        Welcome!!!
+    </h1>
+</div>
+<form class="form-horizontal" [formGroup]="trainingForm" (ngSubmit)="SaveTrainingInfo()" >
+    <fieldset>
+        <div id="legend">
+            <legend class="">Please Enter the Training Details</legend>
+        </div>
+        <div class="control-group" style="margin-top: 40px;">
+            <label class="control-label" for="TName">Training Name</label>
+            <div class="controls">
+                <input id="TName" type="text" class="form-control" formControlName="TName" [ngClass]="{ 'is-invalid': submitted && f.TName.errors }">
+                <p class="help-block">Enter the Training Name</p>
+                <div *ngIf="submitted && f.TName.errors" class="invalid-feedback">
+                    <div *ngIf="f.TName.errors.required">Training Name is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="TStart">Start Date</label>
+            <div class="controls">
+                <input class="form-control DatePicker" ngbDatepicker (click)="datePicker1.toggle()" #datePicker1="ngbDatepicker" formControlName="TStart"
+                       placeholder="yyyy-mm-dd" [ngClass]="{ 'is-invalid': submitted && f.TStart.errors }">
+                <p class="help-block">Select the training start date</p>
+                <div *ngIf="submitted && f.TStart.errors" class="invalid-feedback">
+                    <div *ngIf="f.TStart.errors.required">Training Start date is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="TEnd">End Date</label>
+            <div class="controls">
+                <input class="form-control DatePicker" ngbDatepicker (click)="datePicker2.toggle()" #datePicker2="ngbDatepicker" formControlName="TEnd"
+                       placeholder="yyyy-mm-dd" [ngClass]="{ 'is-invalid': submitted && f.TEnd.errors }">
+                <p class="help-block">Select the training end date</p>
+                <div *ngIf="submitted && f.TEnd.errors" class="invalid-feedback">
+                    <div *ngIf="f.TEnd.errors.required">Training End date is required</div>
+                    <div *ngIf="f.TEnd.errors.ValidateDates">Training End Date must be greater than Start Date</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button class="btn btn-success" type="submit">Save</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<h1>{{popupmessage}}</h1>
+
+<jw-modal id="custom-modal-2">
+    <h3 style="height:50px">{{ popupmessage }}</h3>
+    <button (click)="closeModal('custom-modal-2');">Close</button>
+</jw-modal>
